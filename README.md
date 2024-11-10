@@ -1,33 +1,45 @@
 # Sudoku Solver
 
-This project is a Sudoku Solver implemented in Python. It uses a backtracking algorithm to solve Sudoku puzzles.
+## Overview
+This project is a Sudoku Solver that aims to solve Sudoku puzzles programmatically. The solution employs various strategies and deduction rules to find solutions efficiently.
 
-## Features
+### Key Folders
+- **src/**: Contains all the source code files written in Java.
+  - `Main.java`: The entry point of the application.
+  - `core/`, `rules/`, `solver/`, etc.: Contains different parts of the solver logic.
+- **bin/**: Compiled `.class` files.
+- **Report/**: Contains parts of the report written in LaTeX.
 
-- Solves any valid Sudoku puzzle
-- Provides a visual representation of the puzzle and its solution
-- Easy to use interface
+### Text Files
+- **DR1_puzzle.txt**, **DR2_puzzle.txt**, **DR3_puzzle.txt**: These files contain Sudoku puzzles that are used as input for testing different solving strategies.
 
-## Installation
+## Getting Started
+To get started with the project, you need to compile the source code and then execute the `Main` class to run the solver.
 
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/yisola2/ssolver.git
-    ```
-2. Navigate to the project directory:
-    ```sh
-    cd SudokuSolver
-    ```
-3. Install the required dependencies:
-    ```sh
-    pip install -r requirements.txt
-    ```
+### Prerequisites
+- **Java JDK 8 or higher**
+- **Build Tools**: You can use a tool like `javac` to compile the code or set up a Java IDE like IntelliJ IDEA or Eclipse.
 
-## Usage
+### Compiling and Running
+1. **Compile the source files**:
+   ```sh
+   javac -d bin src/**/*.java
+   ```
 
-1. Run the solver:
-    ```sh
-    python solver.py
-    ```
-2. Input your Sudoku puzzle when prompted.
+2. **Run the Solver**:
+   ```sh
+   java -cp bin Main
+   ```
 
+### Usage
+- **Input**: Provide a Sudoku puzzle in one of the provided text files (e.g., `DR1_puzzle.txt`).
+- **Output**: The solution to the puzzle will be printed to the console.
+
+## Rules and Strategies
+The project applies several deduction rules to solve puzzles:
+- **DR1**: Simple elimination.
+- **DR2**: Hidden single.
+- **DR3**: Locked Candidates strategy.
+
+## Report
+The `Report` directory contains LaTeX files that document the project, including its design, approach, and the logic behind each deduction rule.
