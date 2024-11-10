@@ -1,0 +1,199 @@
+\chapter{Discussion}
+
+\section{Design Decisions}
+
+\subsection{Board Representation}
+The decision to use a linear array for board representation instead of a 2D array was based on several factors:
+
+\begin{itemize}
+    \item \textbf{Simplicity}: Linear access simplifies index calculations
+    \item \textbf{Performance}: Reduced memory overhead and cache-friendly access
+    \item \textbf{Implementation}: Easier to implement unit operations (row, column, box)
+\end{itemize}
+
+The trade-off between readability and performance was considered:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Approach} & \textbf{Advantages} & \textbf{Disadvantages} \\
+\hline
+2D Array & More intuitive & Additional memory overhead \\
+ & Easier to visualize & More complex index management \\
+\hline
+Linear Array & Better performance & Less intuitive indexing \\
+ & Simpler implementation & Requires index calculations \\
+\hline
+\end{tabular}
+\caption{Board Representation Comparison}
+\label{table:board-comparison}
+\end{table}
+
+\subsection{Design Pattern Selection}
+The choice of design patterns was driven by specific needs:
+
+\begin{itemize}
+    \item \textbf{Observer Pattern}
+    \begin{itemize}
+        \item Used for cell state changes
+        \item Enables automatic candidate updates
+        \item Reduces coupling between components
+    \end{itemize}
+    
+    \item \textbf{Factory Pattern}
+    \begin{itemize}
+        \item Centralizes rule creation
+        \item Allows easy addition of new rules
+        \item Encapsulates instantiation logic
+    \end{itemize}
+    
+    \item \textbf{Template Method Pattern}
+    \begin{itemize}
+        \item Standardizes rule application process
+        \item Reduces code duplication
+        \item Ensures consistent behavior
+    \end{itemize}
+    
+    \item \textbf{Singleton Pattern}
+    \begin{itemize}
+        \item Controls board instance creation
+        \item Manages global state
+        \item Ensures consistency
+    \end{itemize}
+\end{itemize}
+
+\section{Challenges Faced}
+
+\subsection{Technical Challenges}
+\begin{enumerate}
+    \item \textbf{Candidate Management}
+    \begin{itemize}
+        \item Challenge: Efficient updates of candidate lists
+        \item Solution: Optimized data structures and caching
+        \item Result: Improved performance in rule application
+    \end{itemize}
+    
+    \item \textbf{Rule Implementation}
+    \begin{itemize}
+        \item Challenge: Complex logic for DR3 (Locked Candidates)
+        \item Solution: Decomposed into smaller, focused methods
+        \item Result: More maintainable and testable code
+    \end{itemize}
+    
+    \item \textbf{State Validation}
+    \begin{itemize}
+        \item Challenge: Detecting invalid states efficiently
+        \item Solution: Implemented incremental validation
+        \item Result: Earlier detection of inconsistencies
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Design Challenges}
+\begin{enumerate}
+    \item \textbf{Balance of Concerns}
+    \begin{itemize}
+        \item Challenge: Separating solving logic from board management
+        \item Solution: Clear interface boundaries and responsibility allocation
+        \item Result: More modular and maintainable code
+    \end{itemize}
+    
+    \item \textbf{Error Handling}
+    \begin{itemize}
+        \item Challenge: Graceful handling of invalid states
+        \item Solution: Comprehensive validation system
+        \item Result: Robust error recovery mechanisms
+    \end{itemize}
+\end{enumerate}
+
+\section{Solutions Implemented}
+
+\subsection{Performance Optimizations}
+\begin{itemize}
+    \item Cached candidate lists to reduce recalculations
+    \item Optimized unit operations (row, column, box)
+    \item Minimized object creation during solving
+\end{itemize}
+
+\subsection{Code Organization}
+\begin{itemize}
+    \item Clear package structure
+    \item Consistent naming conventions
+    \item Comprehensive documentation
+    \item Unit-tested components
+\end{itemize}
+
+\chapter{Conclusion}
+
+\section{Project Summary}
+The Sudoku solver project successfully implements a solution that meets all core requirements:
+
+\begin{itemize}
+    \item Implementation of three deduction rules
+    \item Proper handling of input/output formats
+    \item Integration of multiple design patterns
+    \item Robust error handling
+    \item User interaction capabilities
+\end{itemize}
+
+The solution demonstrates good software engineering practices through:
+
+\begin{itemize}
+    \item Clean architecture
+    \item Modular design
+    \item Extensible framework
+    \item Comprehensive testing
+    \item Clear documentation
+\end{itemize}
+
+\section{Future Improvements}
+
+\subsection{Additional Features}
+\begin{itemize}
+    \item Implementation of more advanced solving techniques
+    \item Puzzle difficulty evaluation
+    \item Step-by-step solution visualization
+    \item Multiple input format support
+\end{itemize}
+
+\subsection{Technical Enhancements}
+\begin{itemize}
+    \item Performance optimizations for larger puzzles
+    \item Parallel processing for rule application
+    \item More sophisticated candidate management
+    \item Enhanced error recovery mechanisms
+\end{itemize}
+
+\subsection{User Experience}
+\begin{itemize}
+    \item Graphical user interface
+    \item Interactive solving guidance
+    \item Solution explanation capabilities
+    \item Puzzle generation features
+\end{itemize}
+
+\section{Learning Outcomes}
+This project provided valuable experience in:
+
+\begin{itemize}
+    \item Application of design patterns
+    \item Object-oriented design principles
+    \item Test-driven development
+    \item Error handling strategies
+    \item Documentation practices
+\end{itemize}
+
+\appendix
+\chapter{References}
+
+\begin{enumerate}
+    \item Gang of Four Design Patterns: Elements of Reusable Object-Oriented Software
+    \item Clean Code: A Handbook of Agile Software Craftsmanship by Robert C. Martin
+    \item Effective Java by Joshua Bloch
+    \item Software Engineering: A Practitioner's Approach by Roger S. Pressman
+\end{enumerate}
+
+\chapter{Appendix: Test Cases}
+[Detailed test cases and results would be included here]
+
+\end{document}

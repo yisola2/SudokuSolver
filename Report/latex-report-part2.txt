@@ -1,0 +1,188 @@
+\chapter{Design}
+
+\section{Architecture Overview}
+The Sudoku solver is designed with a clear separation of concerns and modular architecture. The system is divided into several key components:
+
+\begin{itemize}
+    \item \textbf{Core Components}: Handle the fundamental Sudoku data structures and operations
+    \item \textbf{Rules Engine}: Implements the deduction rules and their application logic
+    \item \textbf{Solver}: Coordinates the solving process and user interaction
+    \item \textbf{Utilities}: Provide support functionality like file I/O and validation
+\end{itemize}
+
+\section{Class Diagram}
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[node distance=2cm]
+% Core Components
+\node[rectangle,draw] (board) {
+    \begin{tabular}{l}
+        \textbf{SudokuBoard} \\
+        \hline
+        - cells: Cell[] \\
+        - candidateManager: CandidateManager \\
+        \hline
+        + getValue(index: int): int \\
+        + setValue(index: int, value: int) \\
+        + isFull(): boolean
+    \end{tabular}
+};
+
+\node[rectangle,draw, below=of board] (cell) {
+    \begin{tabular}{l}
+        \textbf{Cell} \\
+        \hline
+        - index: int \\
+        - value: int \\
+        - observers: List<CellObserver> \\
+        \hline
+        + getValue(): int \\
+        + setValue(value: int) \\
+        + notifyObservers()
+    \end{tabular}
+};
+
+\node[rectangle,draw, right=of board] (candmanager) {
+    \begin{tabular}{l}
+        \textbf{CandidateManager} \\
+        \hline
+        - candidateCache: Map<Integer, Set<Integer>> \\
+        \hline
+        + updateCandidates(index: int, value: int) \\
+        + getCandidates(index: int): Set<Integer>
+    \end{tabular}
+};
+
+% Rules Components
+\node[rectangle,draw, below=of cell] (dedrule) {
+    \begin{tabular}{l}
+        \textbf{DeductionRule} \\
+        \hline
+        \# madeProgress: boolean \\
+        \hline
+        + apply(board: SudokuBoard) \\
+        \# abstract executeRule(board: SudokuBoard)
+    \end{tabular}
+};
+
+\node[rectangle,draw, below left=of dedrule] (dr1) {
+    \begin{tabular}{l}
+        \textbf{DR1} \\
+        \hline
+        \# executeRule(board: SudokuBoard)
+    \end{tabular}
+};
+
+\node[rectangle,draw, below=of dedrule] (dr2) {
+    \begin{tabular}{l}
+        \textbf{DR2} \\
+        \hline
+        \# executeRule(board: SudokuBoard)
+    \end{tabular}
+};
+
+\node[rectangle,draw, below right=of dedrule] (dr3) {
+    \begin{tabular}{l}
+        \textbf{DR3} \\
+        \hline
+        \# executeRule(board: SudokuBoard)
+    \end{tabular}
+};
+
+% Draw relationships
+\draw[->] (board) -- (cell) node[midway,left] {contains};
+\draw[->] (board) -- (candmanager) node[midway,above] {uses};
+\draw[->] (dr1) -- (dedrule) node[midway,left] {extends};
+\draw[->] (dr2) -- (dedrule) node[midway,right] {extends};
+\draw[->] (dr3) -- (dedrule) node[midway,right] {extends};
+
+\end{tikzpicture}
+\caption{Class Diagram of Core Components and Rules}
+\label{fig:class-diagram}
+\end{figure}
+
+\section{Design Patterns Implementation}
+
+\subsection{Observer Pattern}
+The Observer pattern is implemented in the Cell class to notify interested components about state changes. This pattern is particularly useful for updating the candidate lists when cell values change.
+
+\begin{lstlisting}[language=Java, caption=Observer Pattern Implementation]
+public interface CellObserver {
+    void update(Cell cell);
+}
+
+public class Cell {
+    private List<CellObserver> observers;
+    
+    public void addObserver(CellObserver observer) {
+        observers.add(observer);
+    }
+    
+    private void notifyObservers() {
+        for (CellObserver observer : observers) {
+            observer.update(this);
+        }
+    }
+}
+\end{lstlisting}
+
+\subsection{Factory Pattern}
+The Factory pattern is used to create instances of deduction rules, encapsulating the instantiation logic and providing a clean interface for rule creation.
+
+\begin{lstlisting}[language=Java, caption=Factory Pattern Implementation]
+public class RuleFactory {
+    private static RuleFactory instance;
+    
+    public static synchronized RuleFactory getInstance() {
+        if (instance == null) {
+            instance = new RuleFactory();
+        }
+        return instance;
+    }
+    
+    public DeductionRule createRule(String ruleType) {
+        return switch (ruleType.toUpperCase()) {
+            case "DR1" -> new DR1();
+            case "DR2" -> new DR2();
+            case "DR3" -> new DR3();
+            default -> throw new IllegalArgumentException(
+                "Unknown rule type: " + ruleType);
+        };
+    }
+}
+\end{lstlisting}
+
+\subsection{Template Method Pattern}
+The Template Method pattern is implemented in the DeductionRule class, providing a framework for different solving strategies while maintaining a consistent structure.
+
+\begin{lstlisting}[language=Java, caption=Template Method Pattern Implementation]
+public abstract class DeductionRule {
+    protected boolean madeProgress;
+    
+    public final void apply(SudokuBoard board) {
+        executeRule(board);
+    }
+    
+    protected abstract void executeRule(SudokuBoard board);
+    
+    public boolean hasMadeProgress() {
+        return madeProgress;
+    }
+}
+\end{lstlisting}
+
+\subsection{Singleton Pattern}
+The Singleton pattern is used in both the SudokuBoard and RuleFactory classes to ensure single instances of these important components.
+
+\begin{lstlisting}[language=Java, caption=Singleton Pattern Implementation]
+public class SudokuBoard {
+    private static SudokuBoard instance;
+    
+    public static SudokuBoard getInstance() {
+        if (instance == null) {
+            instance = new SudokuBoard();
+        }
+        return instance;
+    }
+}
+\end{lstlisting}

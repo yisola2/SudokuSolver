@@ -1,0 +1,74 @@
+package util;
+
+import core.SudokuBoard;
+import rules.*;
+import solver.SudokuSolver;
+
+public class DifficultyEvaluator {
+    public enum Difficulty {
+        EASY("Easy - Solvable with DR1 only"),
+        MEDIUM("Medium - Requires DR2"),
+        HARD("Hard - Requires DR3"),
+        VERY_HARD("Very Hard - Not solvable with current rules");
+
+        private final String description;
+
+        Difficulty(String description) {
+            this.description = description;
+        }
+
+        @Override
+        public String toString() {
+            return description;
+        }
+    }
+
+    public static Difficulty evaluatePuzzle(SudokuBoard board) {
+        if (board == null) {
+            throw new IllegalArgumentException("Board cannot be null");
+        }
+
+        // Try with DR1 only
+        try {
+            SudokuBoard copyForDR1 = board.copy();
+            if (canSolveWith(copyForDR1, "DR1")) {
+                return Difficulty.EASY;
+            }
+        } catch (Exception e) {
+            System.out.println("Error testing DR1: " + e.getMessage());
+        }
+
+        // Try with DR1 + DR2
+        try {
+            SudokuBoard copyForDR2 = board.copy();
+            if (canSolveWith(copyForDR2, "DR1", "DR2")) {
+                return Difficulty.MEDIUM;
+            }
+        } catch (Exception e) {
+            System.out.println("Error testing DR2: " + e.getMessage());
+        }
+
+        // Try with all rules
+        try {
+            SudokuBoard copyForDR3 = board.copy();
+            if (canSolveWith(copyForDR3, "DR1", "DR2", "DR3")) {
+                return Difficulty.HARD;
+            }
+        } catch (Exception e) {
+            System.out.println("Error testing DR3: " + e.getMessage());
+        }
+
+        return Difficulty.VERY_HARD;
+    }
+
+    private static boolean canSolveWith(SudokuBoard board, String... ruleTypes) {
+        SudokuSolver solver = new SudokuSolver();
+        RuleFactory ruleFactory = RuleFactory.getInstance();
+
+        for (String ruleType : ruleTypes) {
+            solver.addRule(ruleFactory.createRule(ruleType));
+        }
+
+        return solver.solveForEvaluation(board);
+    }
+}
