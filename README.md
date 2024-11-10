@@ -24,7 +24,7 @@ To get started with the project, you need to compile the source code and then ex
 1. **Clone the repository**:
    ```sh
    git clone https://github.com/yisola2/SudokuSolver.git
-   cd ssolver
+   cd SudokuSolver
    ```
 
 2. **Compile the source files**:
@@ -34,7 +34,7 @@ To get started with the project, you need to compile the source code and then ex
 
 3. **Run the Solver**:
    ```sh
-   java -cp bin Main
+   java -cp bin src/Main.java <input.txt> 
    ```
 
 ### Usage
