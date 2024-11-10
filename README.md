@@ -8,7 +8,7 @@ This project is a Sudoku Solver that aims to solve Sudoku puzzles programmatical
   - `Main.java`: The entry point of the application.
   - `core/`, `rules/`, `solver/`, etc.: Contains different parts of the solver logic.
 - **bin/**: Compiled `.class` files.
-- **Report/**: Contain Project Report.
+- **Report/**: Contain Project Report
 
 ### Text Files
 - **DR1_puzzle.txt**, **DR2_puzzle.txt**, **DR3_puzzle.txt**: These files contain Sudoku puzzles that are used as input for testing different solving strategies.
