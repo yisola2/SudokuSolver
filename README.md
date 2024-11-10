@@ -43,3 +43,8 @@ The project applies several deduction rules to solve puzzles:
 
 ## Report
 The `Report` directory contains LaTeX files that document the project, including its design, approach, and the logic behind each deduction rule.
+
+## Authors
+- **Yassin Es Saim - M1 Informatique - 22109654**
+
+
