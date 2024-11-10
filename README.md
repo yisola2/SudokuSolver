@@ -21,12 +21,18 @@ To get started with the project, you need to compile the source code and then ex
 - **Build Tools**: You can use a tool like `javac` to compile the code or set up a Java IDE like IntelliJ IDEA or Eclipse.
 
 ### Compiling and Running
-1. **Compile the source files**:
+1. **Clone the repository**:
+   ```sh
+   git https://github.com/yisola2/ssolver.git
+   cd SudokuSolverFinalE
+   ```
+
+2. **Compile the source files**:
    ```sh
    javac -d bin src/**/*.java
    ```
 
-2. **Run the Solver**:
+3. **Run the Solver**:
    ```sh
    java -cp bin Main
    ```
