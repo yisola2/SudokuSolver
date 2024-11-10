@@ -23,13 +23,13 @@ To get started with the project, you need to compile the source code and then ex
 ### Compiling and Running
 1. **Clone the repository**:
    ```sh
-   git https://github.com/yisola2/ssolver.git
-   cd SudokuSolverFinalE
+   git clone https://github.com/yisola2/ssolver.git
+   cd ssolver
    ```
 
 2. **Compile the source files**:
    ```sh
-   javac -d bin src/**/*.java
+   javac -d bin src/Main.java src/core/*.java src/observer/*.java src/rules/*.java src/solver/*.java src/strategy/*.java src/util/*.java
    ```
 
 3. **Run the Solver**:
