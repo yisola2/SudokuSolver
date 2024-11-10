@@ -34,7 +34,7 @@ To get started with the project, you need to compile the source code and then ex
 
 3. **Run the Solver**:
    ```sh
-   java -cp bin src/Main.java <input.txt> 
+   java -cp bin src/Main.java <input.txt>
    ```
 
 ### Usage
