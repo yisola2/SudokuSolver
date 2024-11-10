@@ -23,7 +23,7 @@ To get started with the project, you need to compile the source code and then ex
 ### Compiling and Running
 1. **Clone the repository**:
    ```sh
-   git clone https://github.com/yisola2/ssolver.git
+   git clone https://github.com/yisola2/SudokuSolver.git
    cd ssolver
    ```
 
