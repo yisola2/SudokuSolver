@@ -9,8 +9,8 @@ import java.io.File;
 public class Main {
     public static void main(String[] args) {
         if (args.length < 1) {
-            System.out.println("Usage: java com.sudoku.solver.Main <input_file>");
-            System.out.println("Example: java com.sudoku.solver.Main puzzle.txt");
+            System.out.println("Usage: java -cp bin src/Main.java <input_file>");
+            System.out.println("Example: java -cp bin src/Main.java DR1_puzzle.txt");
             return;
         }
 
